@@ -1,4 +1,4 @@
-var app = new PIXI.Application(document.body.offsetWidth, document.body.offsetHeight, { backgroundColor: 0xa22929, antialias: true });
+var app = new PIXI.Application(document.body.offsetWidth, document.body.offsetHeight, { backgroundColor: 0xFFFFFF, antialias: true });
 document.body.appendChild(app.view);
 
 var graphics = new PIXI.Graphics();
@@ -15,14 +15,14 @@ createBezierCurve(coordinates);
 function createTitle() {
     var title = document.createElement('div');
     title.className = "title";
-    title.innerHTML = "Bezier curves";
+    title.innerHTML = "Linear Bezier curves";
     document.body.appendChild(title);
 }
 
 function createInfo() {
     var info = document.createElement('div');
     info.className = "info";
-    info.innerHTML = "two dots, please!";
+    info.innerHTML = "Put two dots!";
     document.body.appendChild(info);
 }
 
@@ -45,8 +45,8 @@ function createBezierCurve(coordinates) {
     document.body.onclick = function() {
         if (dots < 2) {
             graphics.lineStyle(0);
-            graphics.beginFill(0xFFFFFF, 1);
-            graphics.drawCircle(mousePosition.x, mousePosition.y, 7);
+            graphics.beginFill(0xff7272, 1);
+            graphics.drawCircle(mousePosition.x, mousePosition.y, 5);
             graphics.endFill();
         
             coordinates[dots].x = mousePosition.x;
@@ -67,8 +67,8 @@ function createLinearCurve(coordinates) {
             Px = (1 - t) * coordinates[0].x + t * coordinates[1].x;
             Py = (1 - t) * coordinates[0].y + t * coordinates[1].y;
             graphics.lineStyle(0);
-            graphics.beginFill(0xFFFFFF, 1);
-            graphics.drawCircle(Px , Py, 2);
+            graphics.beginFill(0xff7272, 1);
+            graphics.drawCircle(Px , Py, 1);
             graphics.endFill();
         }, t * 500 );
     }
