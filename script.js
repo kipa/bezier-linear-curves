@@ -3,13 +3,13 @@ document.body.appendChild(app.view);
 
 var graphics = new PIXI.Graphics();
 var mousePosition = app.renderer.plugins.interaction.mouse.global;
+var curveCount = 0;
 var coordinates = [
     { x: null, y: null },
     { x: null, y: null }
 ];
 
-createTitle();
-createInfo();
+createElements();
 createBezierCurve(coordinates);
 
 function createTitle() {
@@ -24,6 +24,20 @@ function createInfo() {
     info.className = "info";
     info.innerHTML = "two dots, please!";
     document.body.appendChild(info);
+}
+
+function createCurveCounter() {
+    var counter = document.createElement('div');
+    counter.className = "counter";
+    counter.id = 'counter';
+    counter.innerHTML = curveCount;
+    document.body.appendChild(counter);
+}
+
+function createElements() {
+    createTitle();
+    createInfo();
+    createCurveCounter();
 }
 
 let dots = 0;
@@ -47,15 +61,24 @@ function createBezierCurve(coordinates) {
 }
 
 function createLinearCurve(coordinates) {
+    let Px, Py;
     for (let t = 0; t <= 1; t += 0.001) {
         setTimeout(function() {
+            Px = (1 - t) * coordinates[0].x + t * coordinates[1].x;
+            Py = (1 - t) * coordinates[0].y + t * coordinates[1].y;
             graphics.lineStyle(0);
             graphics.beginFill(0xFFFFFF, 1);
-            graphics.drawCircle((1 - t) * coordinates[0].x + t * coordinates[1].x , (1 - t) * coordinates[0].y + t * coordinates[1].y, 2);
+            graphics.drawCircle(Px , Py, 2);
             graphics.endFill();
         }, t * 500 );
     }
     dots = 0;
+    curveCounter();
+}
+
+function curveCounter() {
+    curveCount++;
+    document.getElementById('counter').innerHTML = curveCount;
 }
 
 // function clear() {
